@@ -11,10 +11,10 @@
     <meta property="og:title" content={$t("general.cobalt")} />
 </svelte:head>
 
-<div id="cobalt-save-container" class="center-column-container">
+<div id="cisco-save-container" class="center-column-container">
     <SupportedServices />
     <main
-        id="cobalt-save"
+        id="cisco-save"
         tabindex="-1"
         data-first-focus
     >
@@ -24,12 +24,12 @@
 </div>
 
 <style>
-    #cobalt-save-container {
+    #cisco-save-container {
         padding: var(--padding);
         overflow: hidden;
     }
 
-    #cobalt-save {
+    #cisco-save {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -40,7 +40,7 @@
     }
 
     @media screen and (max-width: 535px) {
-        #cobalt-save-container {
+        #cisco-save-container {
             padding-top: calc(var(--padding) / 2);
         }
     }

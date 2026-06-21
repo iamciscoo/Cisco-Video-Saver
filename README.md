@@ -1,13 +1,13 @@
-# Cobalt Video Saver
+# Cisco Video Saver
 
-Local Docker setup for a customized Cobalt instance with a YouTube download helper. The web UI is served by nginx, Cobalt runs from the official Docker image, and a small local service handles YouTube format detection and downloads with `yt-dlp`.
+Local Docker setup for Cisco Video Saver, a self-hosted video downloader for supported platforms. Paste a link from any service shown in the app's supported services list and Cisco will try to fetch the available media. YouTube links also get a local helper panel with quality choices powered by `yt-dlp`.
 
 ## What is included
 
 - `docker-compose.yml` starts the full local stack.
-- `docker/nginx/` contains nginx config for the Cobalt web UI and the YouTube session bridge.
+- `docker/nginx/` contains nginx config for the Cisco web UI and the YouTube session bridge.
 - `services/youtube-downloader/` contains the local `yt-dlp` bridge used by the custom YouTube panel.
-- `cobalt-source/` contains the patched Cobalt source used to build the web UI and override selected API files.
+- `cobalt-source/` contains the patched upstream source used to build the Cisco web UI and override selected API files.
 - `downloads/` is created locally at runtime and is intentionally ignored by Git.
 
 ## Requirements
@@ -37,7 +37,15 @@ Open the app at:
 http://localhost:5173
 ```
 
-The Cobalt API is exposed locally at `http://localhost:9000`, and the YouTube helper API is exposed at `http://localhost:8787`.
+The Cisco processing API is exposed locally at `http://localhost:9000`, and the YouTube helper API is exposed at `http://localhost:8787`.
+
+## Supported platforms
+
+Cisco can download videos, audio, photos, and other media from the services listed in the app's supported services popover. That list is loaded from the running processing server, so supported platforms may change as the server is updated or configured.
+
+The current stack includes support for common services such as YouTube, Vimeo, Twitter/X, TikTok, Instagram, Facebook, Reddit, SoundCloud, Pinterest, Bluesky, Dailymotion, Snapchat, Twitch clips, VK, Rutube, Tumblr, Loom, Streamable, Bilibili, Newgrounds, and others reported by the app.
+
+Support for a platform means technical compatibility only. It does not imply affiliation, endorsement, or permission to save protected content.
 
 ## Rebuild after frontend changes
 
@@ -72,7 +80,7 @@ This folder is already a Git repository. Before the first commit, decide how you
    ```powershell
    Remove-Item -Recurse -Force cobalt-source\.git
    git add .
-   git commit -m "Initial Cobalt video saver setup"
+   git commit -m "Initial Cisco video saver setup"
    ```
 
 2. Submodule, cleaner if you want to track upstream Cobalt separately:

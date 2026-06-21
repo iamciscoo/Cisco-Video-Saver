@@ -2,12 +2,12 @@
     import IconCobalt from "$components/icons/Cobalt.svelte";
 </script>
 
-<div id="cobalt-logo">
+<div id="cisco-logo" aria-label="Cisco">
     <IconCobalt />
 </div>
 
 <style>
-    #cobalt-logo {
+    #cisco-logo {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -17,12 +17,12 @@
         padding-bottom: calc(var(--sidebar-tab-padding) * 2 - var(--sidebar-inner-padding));
     }
 
-    #cobalt-logo :global(path) {
+    #cisco-logo :global(path) {
         fill: var(--sidebar-highlight);
     }
 
     @media screen and (max-width: 535px) {
-        #cobalt-logo {
+        #cisco-logo {
             display: none;
         }
     }

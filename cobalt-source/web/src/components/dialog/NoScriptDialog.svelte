@@ -10,8 +10,8 @@
                 id="nojs-dialog"
                 meowbalt="error"
                 bodyText={
-                    "cobalt uses javascript for api requests and ui interactions, but it's not available in your browser. "
-                    + "you can still navigate around cobalt, but most functionality won't work."
+                    "Cisco uses javascript for api requests and ui interactions, but it's not available in your browser. "
+                    + "you can still navigate around Cisco, but most functionality won't work."
                 }
                 buttons={[
                     {
