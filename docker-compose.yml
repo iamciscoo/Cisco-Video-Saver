@@ -1,0 +1,65 @@
+services:
+  cobalt:
+    image: ghcr.io/imputnet/cobalt:11
+    container_name: cobalt
+    init: true
+    read_only: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9000:9000/tcp"
+    environment:
+      API_URL: "http://localhost:9000/"
+      FORCE_LOCAL_PROCESSING: "always"
+      CUSTOM_INNERTUBE_CLIENT: "ANDROID_VR"
+      ENABLE_DEPRECATED_YOUTUBE_HLS: "always"
+      YOUTUBE_SESSION_SERVER: "http://yt-session-bridge:8080/"
+      YOUTUBE_SESSION_INNERTUBE_CLIENT: "WEB_EMBEDDED"
+    volumes:
+      - ./cobalt-source/api/src/config.js:/app/src/config.js:ro
+      - ./cobalt-source/api/src/stream/manage.js:/app/src/stream/manage.js:ro
+      - ./cobalt-source/api/src/stream/ffmpeg.js:/app/src/stream/ffmpeg.js:ro
+      - ./cobalt-source/api/src/stream/internal.js:/app/src/stream/internal.js:ro
+      - ./cobalt-source/api/src/stream/proxy.js:/app/src/stream/proxy.js:ro
+    depends_on:
+      - yt-session-bridge
+
+  yt-session-generator:
+    image: ghcr.io/imputnet/yt-session-generator:webserver
+    container_name: yt-session-generator
+    init: true
+    restart: unless-stopped
+
+  yt-session-bridge:
+    image: nginx:1.27-alpine
+    container_name: yt-session-bridge
+    restart: unless-stopped
+    depends_on:
+      - yt-session-generator
+    volumes:
+      - ./docker/nginx/yt-session-bridge.conf:/etc/nginx/conf.d/default.conf:ro
+
+  cobalt-web:
+    image: nginx:1.27-alpine
+    container_name: cobalt-web
+    restart: unless-stopped
+    depends_on:
+      - cobalt
+      - youtube-downloader
+    ports:
+      - "127.0.0.1:5173:80/tcp"
+    volumes:
+      - ./cobalt-source/web/build:/usr/share/nginx/html:ro
+      - ./docker/nginx/cobalt-web.conf:/etc/nginx/conf.d/default.conf:ro
+
+  youtube-downloader:
+    build:
+      context: ./services/youtube-downloader
+    container_name: youtube-downloader
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787/tcp"
+    environment:
+      YT_DLP_JOBS_FILE: /app/downloads/.youtube-downloader-jobs.json
+    volumes:
+      - ./downloads:/app/downloads

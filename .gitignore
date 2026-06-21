@@ -1,0 +1,45 @@
+# OS and editor noise
+.DS_Store
+desktop.ini
+Thumbs.db
+.vscode/
+.idea/
+
+# Local Codex/analysis output
+.agents/
+.fallow/
+
+# Dependency folders
+node_modules/
+**/node_modules/
+.pnpm-store/
+**/.pnpm-store/
+cobalt-source/.tools/
+
+# Generated web output
+cobalt-source/web/build/
+cobalt-source/web/.svelte-kit/
+cobalt-source/web/package/
+**/vite.config.js.timestamp-*
+**/vite.config.ts.timestamp-*
+
+# Local environment and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+cookies.json
+keys.json
+
+# Runtime downloads and job state
+downloads/
+*.log
+*.err.log
+*.out.log
+youtube-downloader-jobs.json
+.youtube-downloader-jobs.json
+
+# Nested clone metadata from the vendored cobalt source
+cobalt-source/.git/
