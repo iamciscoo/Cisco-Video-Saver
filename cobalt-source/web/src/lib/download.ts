@@ -45,6 +45,22 @@ export const openFile = (file: File) => {
     setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }
 
+export const downloadURL = (url: string) => {
+    if (!['http:', 'https:'].includes(new URL(url).protocol)) {
+        return alert('error: invalid url!');
+    }
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "";
+    a.rel = "noopener noreferrer";
+    a.style.display = "none";
+
+    document.body.append(a);
+    a.click();
+    a.remove();
+}
+
 export const shareFile = async (file: File) => {
     return await navigator?.share({
         files: [ file ],
@@ -132,7 +148,7 @@ export const downloadFile = ({ url, file, urlType }: DownloadFileParams) => {
                 return shareURL(url);
             } else if (pref === "download" && device.supports.directDownload
                     && !(device.is.iOS && urlType === "redirect")) {
-                return openURL(url);
+                return downloadURL(url);
             } else if (pref === "copy" && !file) {
                 return copyURL(url);
             }

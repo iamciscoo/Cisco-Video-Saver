@@ -44,10 +44,9 @@ export const savingHandler = async ({ url, request, oldTaskId }: SavingHandlerAr
     const selectedRequest = request || {
         url: url!,
 
-        // not lazy cuz default depends on device capabilities
-        localProcessing: get(settings).save.localProcessing,
+        localProcessing: "forced",
 
-        alwaysProxy: getSetting("save", "alwaysProxy"),
+        alwaysProxy: true,
         downloadMode: getSetting("save", "downloadMode"),
 
         subtitleLang: getSetting("save", "subtitleLang"),

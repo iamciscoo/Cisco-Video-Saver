@@ -5,10 +5,10 @@
     import { hapticConfirm } from "$lib/haptics";
     import {
         copyURL,
-        openURL,
         shareURL,
         openFile,
         shareFile,
+        downloadURL,
     } from "$lib/download";
 
     import type { CobaltFileUrlType } from "$lib/types/api";
@@ -69,7 +69,7 @@
                             if (file) {
                                 return openFile(file);
                             } else if (url) {
-                                return openURL(url, true);
+                                return downloadURL(url);
                             }
                         }}
                     >
